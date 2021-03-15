@@ -1,0 +1,45 @@
+﻿@model TicketViewModel
+
+<h2>New Task</h2>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Add" method="post">
+
+    <div class="form-group">
+        <label asp-for="CurrentTicket.Name">Name:</label>
+        <input type="text" asp-for="CurrentTicket.Name" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CurrentTicket.Description">Description:</label>
+        <input type="text" asp-for="CurrentTicket.Description" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CurrentTicket.SprintId">Sprint:</label>
+        <select asp-for="CurrentTicket.SprintId" class="form-control"
+                asp-items="@(new SelectList(Model.Sprints, "SprintId", "SprintNumber"))">
+            <option value=""></option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CurrentTicket.PointId">Point Value:</label>
+        <select asp-for="CurrentTicket.PointId" class="form-control"
+                asp-items="@(new SelectList(Model.Points, "PointId", "Name"))">
+            <option value=""></option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CurrentTicket.StatusId">Status:</label>
+        <select asp-for="CurrentTicket.StatusId" class="form-control"
+                asp-items="@(new SelectList(Model.Statuses, "StatusId", "Name"))">
+            <option value=""></option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+    <a asp-action="Index" class="btn btn-primary">Cancel</a>
+</form>

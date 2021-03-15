@@ -1,0 +1,59 @@
+﻿@model TicketViewModel
+<div class="row">
+    <div class="col-sm-2">
+        <form asp-action="Filter" method="post">
+            <div class="form-group">
+                <label>Sprint:</label>
+                <select name="filter" class="form-control"
+                        asp-items="@(new SelectList(Model.Sprints,
+                                       "SprintId", "SprintNumber", Model.Filters.SprintId))">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Status:</label>
+                <select name="filter" class="form-control"
+                        asp-items="@(new SelectList(Model.Statuses,
+                                       "StatusId", "Name", Model.Filters.StatusId))">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a asp-action="Index" asp-route-id="" class="btn btn-primary">Clear</a>
+        </form>
+    </div>
+    <div class="col-sm-10">
+
+        <a asp-action="Add"><b>Add new ticket</b></a>
+        <table class="table table-bordered table-striped mt-2">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Sprint</th>
+                    <th>Points</th>
+                    <th>Status</th>
+                    <th class="w-25"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Ticket ticket in Model.Tickets)
+                {
+                    <tr>
+                        <td>@ticket.Name</td>
+                        <td>@ticket.Description</td>
+                        <td>@ticket.Sprint.SprintNumber</td>
+                        <td>@ticket.Point.Name</td>
+                        <td>@ticket.Status.Name</td>
+                        <td>
+                            <a asp-action="Edit"
+                               asp-route-id="@ticket.TicketId">Edit</a>
+                            <a asp-action="Delete"
+                               asp-route-id="@ticket.TicketId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

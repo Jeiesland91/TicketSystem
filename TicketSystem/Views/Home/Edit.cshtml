@@ -1,0 +1,59 @@
+﻿@model TicketSystem.Models.Ticket
+@{
+    string title = ViewBag.Action + " Ticket";
+    ViewBag.Title = title;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SprintId">Sprint</label>
+        <select asp-for="SprintId" class="form-control">
+            <option value="">select a sprint</option>
+            @foreach (Sprint s in ViewBag.Sprints)
+            {
+                <option value="@s.SprintId">@s.SprintNumber</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PointId">Point Value</label>
+        <select asp-for="PointId" class="form-control">
+            <option value="">select a point value</option>
+            @foreach (Point p in ViewBag.Points)
+            {
+                <option value="@p.PointId">@p.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StatusId">Status</label>
+        <select asp-for="StatusId" class="form-control">
+            <option value="">select a status</option>
+            @foreach (Status s in ViewBag.Statuses)
+            {
+                <option value="@s.StatusId">@s.Name</option>
+            }
+        </select>
+    </div>
+
+    <input type="hidden" asp-for="TicketId" />
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Cancel</a>
+</form>
